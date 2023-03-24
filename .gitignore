@@ -1,0 +1,5 @@
+
+news_app/android/app/google-services.json
+news_app/ios/Runner/GoogleService-Info.plist
+news_app/macos/Runner/GoogleService-Info.plist
+news_app/lib/firebase_options.dart
