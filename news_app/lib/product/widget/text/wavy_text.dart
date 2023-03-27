@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 import 'package:news_app/product/constants/color_constants.dart';
-import 'package:news_app/product/constants/string_constants.dart';
 
 class WavyBoldText extends StatelessWidget {
   const WavyBoldText({required this.title, super.key});
@@ -12,8 +11,10 @@ class WavyBoldText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedTextKit(
+      repeatForever: true,
       animatedTexts: [
         WavyAnimatedText(
+          
           title,
           textStyle: context.textTheme.headlineSmall?.copyWith(
               color: ColorConstants.white, fontWeight: FontWeight.bold,),

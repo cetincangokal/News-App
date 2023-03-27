@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_app/feature/splash/splash_view.dart';
+import 'package:news_app/product/constants/string_constants.dart';
 import 'package:news_app/product/initialize/application_start.dart';
 
 Future<void> main() async {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Material App',
+      title: StringConstants.appName,
       home: SplashView(),
     );
   }
