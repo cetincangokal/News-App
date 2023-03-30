@@ -15,7 +15,8 @@ class SplashView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends ConsumerState<SplashView> {
+class _SplashViewState extends ConsumerState<SplashView>
+    with _SplashViewListenMixin {
   final splashProvider =
       StateNotifierProvider<SplashProvider, SplashState>((ref) {
     return SplashProvider();
@@ -24,12 +25,34 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
     super.initState();
-    ref.read(splashProvider.notifier).checkApplicationVersion(''.version); 
+    ref.read(splashProvider.notifier).checkApplicationVersion(''.version);
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(splashProvider, (previous, next) {
+    listenAndNavigate(splashProvider);
+    
+    return Scaffold(
+      backgroundColor: ColorConstants.purplePrimary,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconConstants.appIcon.toImage,
+            Padding(
+              padding: context.onlyTopPaddingNormal,
+              child: const WavyBoldText(title: StringConstants.appName),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+mixin _SplashViewListenMixin on ConsumerState<SplashView> {
+  void listenAndNavigate (StateNotifierProvider<SplashProvider, SplashState> provider) {
+    ref.listen(provider, (previous, next) {
       if (next.isRequiredForceUpdate ?? false) {
         showAboutDialog(context: context);
         return;
@@ -40,19 +63,5 @@ class _SplashViewState extends ConsumerState<SplashView> {
         } else {}
       }
     });
-    return Scaffold(
-      backgroundColor: ColorConstants.purplePrimary,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconConstants.appIcon.toImage,
-            Padding(
-              padding: context.onlyTopPaddingNormal,
-              child:const WavyBoldText(title: StringConstants.appName),),
-          ],
-        ),
-      ),
-    );
   }
 }
